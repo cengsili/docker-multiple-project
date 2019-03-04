@@ -2,7 +2,7 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t complex-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+  - docker build -t complex-test -f ./client/Dockerfile.dev ./client
 script:
   - docker run complex-test npm test -- --coverage
 after-success: 
@@ -12,3 +12,8 @@ after-success:
   - docker build -t complex-worker ./worker
   #Log in
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  #push docker-hub
+  - docker push complex-client
+  - docker push complex-nginx
+  - docker push complex-server
+  - docker push complex-worker
