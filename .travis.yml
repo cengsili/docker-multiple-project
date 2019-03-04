@@ -2,16 +2,16 @@ sudo: required
 services:
   - docker
 before_install:
-  - docker build -t complex-test -f ./client/Dockerfile.dev ./client
+  - docker build -t cengsili/complex-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run complex-test npm test -- --coverage
+  - docker run cengsili/complex-test npm test -- --coverage
 after_success:
-  - docker build -t complex-client ./client
-  - docker build -t complex-nginx ./nginx
-  - docker build -t complex-server ./server
-  - docker build -t complex-worker ./worker
+  - docker build -t cengsili/complex-client ./client
+  - docker build -t cengsili/complex-nginx ./nginx
+  - docker build -t cengsili/complex-server ./server
+  - docker build -t cengsili/complex-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push complex-client
-  - docker push complex-nginx
-  - docker push complex-server
-  - docker push complex-worker
+  - docker push cengsili/complex-client
+  - docker push cengsili/complex-nginx
+  - docker push cengsili/complex-server
+  - docker push cengsili/complex-worker
